@@ -1,0 +1,35 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - 3306:3306/tcp
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./infrastructure/mysql/conf.d:/etc/mysql/conf.d
+      - ./infrastructure/mysql/mysql.conf.d:/etc/mysql/mysql.conf.d
+      - ./infrastructure/mysql/data:/var/lib/mysql
+      - ./infrastructure/mysql/log:/var/log/mysql
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379/tcp
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090/tcp
+    volumes:
+      - ./infrastructure/prometheus/data:/prometheus-data
+    command: --config.file=/prometheus-data/prometheus.yml
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - 9411:9411/tcp
