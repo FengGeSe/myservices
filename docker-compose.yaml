@@ -26,6 +26,13 @@ services:
     volumes:
       - ./infrastructure/prometheus/data:/prometheus-data
     command: --config.file=/prometheus-data/prometheus.yml
+  grafana:
+    image: grafana/grafana:5.3.2
+    container_name: grafana
+    volumes:
+        - ./infrastructure/grafana/conf:/usr/share/grafana/conf
+    ports:
+      - 3000:3000
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
