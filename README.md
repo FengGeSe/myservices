@@ -55,6 +55,16 @@ git clone git@github.com:FengGeSe/myservices.git
 ```
 docker-compose up -d
 ```
+
+# 验证
+* 连接mysql
+```
+mysql -h127.0.0.1 -P 3306 -uroot -p123456
+```
+* 连接redis
+```
+redis-cli -h 127.0.0.1 -p 6379
+```
 * 打开prometheus监控
 ```
 $ open http://127.0.0.1:9090
@@ -63,4 +73,5 @@ $ open http://127.0.0.1:9090
 ```
 $ open http://127.0.0.1:9411
 ```
+
 
