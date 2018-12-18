@@ -1,17 +1,13 @@
 *
 
 !infrastructure
-!infrastructure/*
-!infrastructure/
+![Rr]infrastructure/*
 
 
 !test
 !test/*
 
 
-!test1/*
-
-!test2/
 
 !docker-compose*
 !README.md
