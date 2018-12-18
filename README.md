@@ -53,6 +53,10 @@ comments: https://github.com/FengGeSe/comments
 ```
 git clone git@github.com:FengGeSe/myservices.git
 ```
+* 创建mysql日志文件
+```
+cd infrastructure/mysql/log/ && touch mysql.log error.log &&  chmod 755 mysql.log error.log
+```
 * 启动
 ```
 docker-compose up -d
