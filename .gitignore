@@ -5,12 +5,6 @@
 !infrastructure/*/*
 
 
-
-!test
-!test/*
-
-
-
 !docker-compose*
 !README.md
 
