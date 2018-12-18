@@ -1,11 +1,10 @@
 *
 !haha
-!base
 
 
-!base
-!base/*
-!base/
+!infrastructure
+!infrastructure/*
+!infrastructure/
 
 
 !docker-compose*
