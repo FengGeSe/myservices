@@ -53,6 +53,11 @@ comments: https://github.com/FengGeSe/comments
 ```
 git clone git@github.com:FengGeSe/myservices.git
 ```
+* 创建mysql日志文件
+ps: 必须赋予相应的权限，mysql才能写入日志到这里。
+```
+cd infrastructure/mysql/log/ && touch mysql.log error.log &&  chmod 755 mysql.log error.log
+```
 * 启动
 ```
 docker-compose up -d
