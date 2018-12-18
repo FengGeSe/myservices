@@ -59,11 +59,11 @@ docker-compose up -d
 # 验证
 * 连接mysql
 ```
-mysql -h127.0.0.1 -P 3306 -uroot -p123456
+$ mysql -h127.0.0.1 -P 3306 -uroot -p123456
 ```
 * 连接redis
 ```
-redis-cli -h 127.0.0.1 -p 6379
+$ redis-cli -h 127.0.0.1 -p 6379
 ```
 * 打开prometheus监控
 ```
@@ -72,6 +72,59 @@ $ open http://127.0.0.1:9090
 * zipkin调用链路跟踪
 ```
 $ open http://127.0.0.1:9411
+```
+
+# 添加微服务
+添加一个微服务模块到你的项目。有2种方式。
+
+第一种: 从源码build。 这个适用于你是负责这个模块的开发者，有这个模块的源码权限。
+比如要添加一个books的微服务模块.
+在myservices目录下
+```
+$ git clone git@github.com:FengGeSe/books.git
+```
+添加如下配置到docker-compose.yml文件:
+```
+  books:
+    build: ./books
+    image: books:1.0
+    container_name: books
+    depends_on:
+      - mysql
+      - redis
+      - prometheus
+      - zipkin
+    ports:
+      - 5001:5001
+      - 5002:5002
+      - 5003:5003
+      - 5004:5004
+      - 5005:5005
+```
+
+
+第二种: 从镜像仓库拉取。 这个适用于别人维护的模块，你需要调用了人家的服务。
+比如要添加一个comments的微服务模块.
+在myservices目录下
+```
+$ git clone git@github.com:FengGeSe/comments.git
+```
+添加如下配置到docker-compose.yaml:
+```
+  comments:
+    image: comments:1.0
+    container_name: comments
+    depends_on:
+      - mysql
+      - redis
+      - prometheus
+      - zipkin
+    ports:
+      - 5011:5001
+      - 5012:5002
+      - 5013:5003
+      - 5014:5004
+      - 5015:5005
 ```
 
 
