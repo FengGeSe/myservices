@@ -3,8 +3,9 @@
 
 docker-compose.yaml
 ```
-version: '2'
+version: '3'
 services:
+  #################################基础设施########################################
   mysql:
     image: mysql:5.7
     container_name: mysql
@@ -13,26 +14,78 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     volumes:
-      - ./mysql/conf.d:/etc/mysql/conf.d
-      - ./mysql/mysql.conf.d:/etc/mysql/mysql.conf.d
-      - ./mysql/data:/var/lib/mysql
-      - ./mysql/log:/var/log/mysql
+      - ./infrastructure/mysql/conf.d:/etc/mysql/conf.d
+      - ./infrastructure/mysql/mysql.conf.d:/etc/mysql/mysql.conf.d
+      - ./infrastructure/mysql/data:/var/lib/mysql
+      - ./infrastructure/mysql/log:/var/log/mysql
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379/tcp
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090/tcp
+    volumes:
+      - ./infrastructure/prometheus/data:/prometheus-data
+    command: --config.file=/prometheus-data/prometheus.yml
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - 9411:9411/tcp
+
+  #################################微服务########################################
+  books:
+    build: ./books
+    image: books:1.0
+    container_name: books
+    depends_on:
+      - mysql
+      - redis
+      - prometheus
+      - zipkin
+    ports:
+      - 5001:5001
+      - 5002:5002
+      - 5003:5003
+      - 5004:5004
+      - 5005:5005
+
+  comments:
+    build: ./comments
+    image: comments:1.0
+    container_name: comments
+    depends_on:
+      - mysql
+      - redis
+      - prometheus
+      - zipkin
+    ports:
+      - 5011:5001
+      - 5012:5002
+      - 5013:5003
+      - 5014:5004
+      - 5015:5005
+
 ```
 # 文件目录
 * README.md 
 * docker-compose.yaml   // 定义了mysql容器启动参数
 * infrastructure
     * mysql
-        * conf.d   // 挂载到容器中 /etc/mysql/conf.d
+        * conf.d   
             * disable_strict_mode.cnf   // 关掉sql语法strict模式
             * docker.cnf
             * mysql.cnf
-            * utf8mb4.cnf     // utf8mb4开启
-        * data    // 挂载到容器中  /var/lib/mysql
-            * log     // 挂载到容器中  /var/log/mysql
-                * error.log      // 文件权限 -rwxr-xr-x  否则写如不了日志
-                * mysql.log      // 文件权限 -rwxr-xr-x  否则写如不了日志
-        * mysql.conf.d    // 挂载到容器中  /etc/mysql/mysql.conf.d
+            * utf8mb4.cnf   
+        * data   
+            * log    
+                * error.log      // 文件权限 -rwxr-xr-x  否则写入不了日志
+                * mysql.log      // 文件权限 -rwxr-xr-x  否则写入不了日志
+        * mysql.conf.d   
             * mysqld.cnf
 
     * redis
