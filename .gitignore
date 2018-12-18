@@ -1,7 +1,9 @@
 *
 
-![Rr]infrastructure
-![Rr]infrastructure/*
+!infrastructure
+!infrastructure/*
+!infrastructure/*/*
+
 
 
 !test
