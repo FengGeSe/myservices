@@ -76,6 +76,45 @@ $ open http://127.0.0.1:9090
 $ open http://127.0.0.1:9411
 ```
 
+# 管理
+开发环境下使用docker-compose管理。
+常用命令如下：
+* 拉取所有镜像
+```
+$ docker-compose pull
+```
+* 构建所有镜像
+```
+$ docker-compose build
+```
+* 启动所有容器
+```
+$ docker-compose up -d
+```
+* 销毁所有容器
+```
+$ docker-compose down
+```
+* 查看某个容器的日志
+```
+$ docker logs -f comments
+```
+* 停止某个容器
+```
+$ docker-compose stop comments
+```
+* 移除某个容器(先stop后rm)
+```
+$ docker-compose rm comments
+```
+* 启动某个容器
+```
+$ docker-compose up -d comments
+```
+
+
+
+
 # 添加微服务
 添加一个微服务模块到你的项目。有2种方式。
 
