@@ -87,23 +87,33 @@ $ git clone git@github.com:FengGeSe/books.git
 ```
 添加如下配置到docker-compose.yml文件:
 ```
-  books:
-    build: ./books
-    image: books:1.0
+   books:
+    image: gxlz/golang:1.10.3-apline3.7
     container_name: books
-    depends_on:
-      - mysql
-      - redis
-      - prometheus
-      - zipkin
     ports:
       - 5001:5001
       - 5002:5002
       - 5003:5003
       - 5004:5004
       - 5005:5005
+    volumes:
+      - ./books:/go/src/myservices/books
+    depends_on:
+      - mysql
+      - redis
+      - prometheus
+      - zipkin
+    entrypoint:
+      - ash
+      - -c
+      - |
+        sleep 15 && \
+        cd /go/src/myservices/books && \
+        realize start
 ```
-
+将myservices/books目录下的源码挂载到容器内部。
+并用realize命令监控源码的改动，从而重启服务。
+这个在开发的时候十分方便。
 
 ### 第二种: 从镜像仓库拉取。 
 这个适用于别人维护的模块，你需要调用了人家的服务。
