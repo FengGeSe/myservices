@@ -3,6 +3,11 @@
 !base
 
 
+!base
+!base/*
+!base/
+
+
 !docker-compose*
 !README.md
 
