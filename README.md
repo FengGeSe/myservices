@@ -1,11 +1,14 @@
 # 简介
 myservices微服务项目的项目结构。不包含各个微服务模块的代码。
+
 微服务模块demo详见：
+
 books: https://github.com/FengGeSe/books
 comments: https://github.com/FengGeSe/comments
 
 # 详情
 本项目包含微服务所需的基础设置配置。
+
 目前有:
 ---
 - [x] Mysql           关系型数据库管理系统
