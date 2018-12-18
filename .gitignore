@@ -1,5 +1,8 @@
 *
 
+!infrastructure
+!infrastructure/*
+
 !docker-compose*
 !README.md
 
