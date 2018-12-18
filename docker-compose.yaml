@@ -34,34 +34,49 @@ services:
 
   #################################微服务######################################## 
   books:
-    build: ./books
-    image: books:1.0
+    image: gxlz/golang:1.10.3-apline3.7
     container_name: books
-    depends_on:
-      - mysql
-      - redis
-      - prometheus
-      - zipkin
     ports:
       - 5001:5001
       - 5002:5002
       - 5003:5003
       - 5004:5004
       - 5005:5005
-
-  comments:
-    build: ./comments
-    image: comments:1.0
-    container_name: comments
+    volumes:
+      - ./books:/go/src/myservices/books
     depends_on:
       - mysql
       - redis
       - prometheus
       - zipkin
+    entrypoint:
+      - ash
+      - -c
+      - |
+        sleep 15 && \
+        cd /go/src/myservices/books && \
+        realize start
+
+  comments:
+    image: gxlz/golang:1.10.3-apline3.7
+    container_name: comments 
     ports:
       - 5011:5001
       - 5012:5002
       - 5013:5003
       - 5014:5004
       - 5015:5005
-
+    volumes:
+      - ./comments:/go/src/myservices/comments
+    depends_on:
+      - mysql
+      - redis
+      - prometheus
+      - zipkin
+    entrypoint:
+      - ash
+      - -c
+      - |
+        sleep 15 && \
+        cd /go/src/myservices/comments && \
+        realize start
