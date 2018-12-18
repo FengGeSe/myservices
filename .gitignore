@@ -4,8 +4,9 @@
 !haha
 
 
-!infrastructure/
 !infrastructure/*
+!infrastructure/
+!infrastructure
 !docker-compose*
 !README.md
 
