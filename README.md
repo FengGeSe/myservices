@@ -115,6 +115,8 @@ $ git clone git@github.com:FengGeSe/books.git
 并用realize命令监控源码的改动，从而重启服务。
 这个在开发的时候十分方便。
 
+ps: 具体配置根据具体情况调整。
+
 ### 第二种: 从镜像仓库拉取。 
 这个适用于别人维护的模块，你需要调用了人家的服务。
 
@@ -140,5 +142,5 @@ $ git clone git@github.com:FengGeSe/comments.git
       - 5014:5004
       - 5015:5005
 ```
-
+ps: 具体配置根据具体情况调整。
 
